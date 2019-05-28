@@ -1,6 +1,19 @@
 <pre>
 <?php
-require_once('vendor/stripe/stripe-php/init.php');
+
+include_once 'db/db.php';
+class StripeClass
+{
+    private $db;
+    public function __construct()
+    {
+        $this->db = new DB();
+        $this->db = $this->db->connect();
+    }
+
+    public function stripeFunctions() {
+    
+        require_once('vendor/stripe/stripe-php/init.php');
 \Stripe\Stripe::setApiKey('sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9'); //YOUR_STRIPE_SECRET_KEY
 // Get the token from the JS script
 $token = $_POST['stripeToken'];
@@ -134,31 +147,8 @@ if (isset($customer)) {
         print_r($charge);
     }
 }
- 
+    
+    
+        }
 
-// You can charge the customer later by using the customer id.
- 
-//Making a Subscription Charge
-// Get the token from the JS script
-//$token = $_POST['stripeToken'];
-// Create a Customer
-//$customer = \Stripe\Customer::create(array(
-//    "email" => "paying.user@example.com",
-//    "source" => $token,
-//));
-// or you can fetch customer id from the database too.
-// Creates a subscription plan. This can also be done through the Stripe dashboard.
-// You only need to create the plan once.
-//$subscription = \Stripe\Plan::create(array(
-//    "amount" => 2000,
-//    "interval" => "month",
-//    "name" => "Gold large",
-//    "currency" => "cad",
-//    "id" => "gold"
-//));
-// Subscribe the customer to the plan
-//$subscription = \Stripe\Subscription::create(array(
-//    "customer" => $customer->id,
-//    "plan" => "gold"
-//));
-//print_r($subscription);
+}

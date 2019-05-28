@@ -103,12 +103,12 @@ var_dump($book);
 </style>
 </head>
 <body>
-<form action="charge.php" method="post" id="payment-form">
   <div class = "user">
     <input type ="text" name="first_name" placeholder="firstname">
     <input type ="text" name="last_name" placeholder="last">
     <input type ="text" name="adress" placeholder="adress">
   </div>
+          <form action="charge.php" method="post" id="payment-form">
   <div class="form-row">
     <label for="card-element">Credit or debit card</label>
     <div id="card-element">

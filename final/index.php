@@ -1,6 +1,7 @@
 <?php
 include_once 'classer/apifunctions.php';
-if (isset($_FILES, $_POST['payment'] )) {
+include_once 'classer/stripefunction.php';
+
     function generatePIN($digits = 4){
         $i = 0; //counter
         $pin = ""; //our default pin is blank.
@@ -12,11 +13,17 @@ if (isset($_FILES, $_POST['payment'] )) {
         return $pin;
       }
       $pin = generatePIN();
-    $obj = new ApiClass();
-    $obj->ApiFunctions($pin);
+    //  if (isset($_POST['submit'])) {
+          
+          $obj = new ApiClass();
+          $obj->ApiFunctions($pin);
+    //  }
 
-    $obj->stripeFunctions();
-}
+    //  if (isset($_POST['submit'])) {
+          $obj2 = new StripeClass();
+          $obj2->stripeFunctions();
+
+   //   }
 
 ?>
 
@@ -50,15 +57,11 @@ if (isset($_FILES, $_POST['payment'] )) {
     <title>Document</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="">
-    <div class = "user">
-    <input type ="text" name="first_name" placeholder="firstname"> </br> </br>
-    <input type ="text" name="last_name" placeholder="last"> </br> </br>
-    <input type ="text" name="adress" placeholder="adress"> </br> </br>
-    <input type="file" name="theFile" value="Välj fil"> </br> </br>
-    <input type="submit" value="send" name="submit">
-  </div>
-  <div class="form-row">
+    <form method="post" enctype="multipart/form-data" action="" id="payment-form">
+    
+    <input type="file" value="välj fil">
+    <div class="form-row">
+            
     <label for="card-element">Credit or debit card</label>
     <div id="card-element">
       <!-- a Stripe Element will be inserted here. -->
