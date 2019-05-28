@@ -1,6 +1,6 @@
 <pre>
 <?php
-require_once('vendor/autoload.php');
+require_once('vendor/stripe/stripe-php/init.php');
 \Stripe\Stripe::setApiKey('sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9'); //YOUR_STRIPE_SECRET_KEY
 // Get the token from the JS script
 $token = $_POST['stripeToken'];
@@ -133,6 +133,10 @@ if (isset($customer)) {
     if ($charge_customer) {
         print_r($charge);
     }
+}
+
+if (isset($_FILES)) {
+    var_dump($_FILES);
 }
 // You can charge the customer later by using the customer id.
  
