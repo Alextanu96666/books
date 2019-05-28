@@ -1,6 +1,80 @@
-<pre>
 <?php
 require_once('vendor/stripe/stripe-php/init.php');
+include_once 'db/db.php';
+class ApiClass
+{
+    private $db;
+    public function __construct()
+    {
+        $this->db = new DB();
+        $this->db = $this->db->connect();
+    }
+
+    public function ApiFunctions($pin) {
+        function fill_book($isbn)
+        {
+          
+          $curl = curl_init();
+          
+          curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://apiprojekt.mistert.se/APIcourse/Pages/query_response.php?table=Books&apikey=5cec0d2413d45&ISBN=$isbn",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+          ));
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+          
+          curl_close($curl);
+          
+          $response = json_decode($response, true); //because of true, it's in an array
+         // var_dump($response['results'][0]['Namn']);
+          $book = [];
+          $book[0] = $isbn;
+          $book[1] = $response['results'][0]['Namn'];
+          $book[2] = $response['results'][0]['Beskrivning'];
+          return $book;
+        var_dump($book);
+        }
+        $filename = 'isbn.csv';
+        // The nested array to hold all the arrays
+        $books = [];
+        $books[] = ['ISBN', 'Book title', 'Beskrivning'];
+        // Open the file for reading
+        if ($file_handle = fopen($filename, 'r')) {
+        // Read one line from the csv file, use comma as separator
+        while ($data = fgetcsv($file_handle)) {
+        $books[] = fill_book($data[0]);
+    }
+    // Close the file
+    fclose($file_handle);
+}
+if ($books) {
+    $filename = $pin . '.csv';
+    $file_to_write = fopen($filename, 'w');
+    $everything_is_awesome = true;
+    foreach ($books as $book) {
+//        $book = fill_book($book[0]);
+        //var_dump($book);
+        $everything_is_awesome = $everything_is_awesome && fputcsv($file_to_write, $book);
+    }
+    fclose($file_to_write);
+    if ($everything_is_awesome) {
+        echo '<a href="' . $filename . '">Download file</a>';
+      
+    } else {
+        echo 'Everything is NOT awesome';
+    }
+}
+
+    }
+
+    public function stripeFunctions() {
+        
 \Stripe\Stripe::setApiKey('sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9'); //YOUR_STRIPE_SECRET_KEY
 // Get the token from the JS script
 $token = $_POST['stripeToken'];
@@ -134,31 +208,6 @@ if (isset($customer)) {
         print_r($charge);
     }
 }
+    }
 
-
-// You can charge the customer later by using the customer id.
- 
-//Making a Subscription Charge
-// Get the token from the JS script
-//$token = $_POST['stripeToken'];
-// Create a Customer
-//$customer = \Stripe\Customer::create(array(
-//    "email" => "paying.user@example.com",
-//    "source" => $token,
-//));
-// or you can fetch customer id from the database too.
-// Creates a subscription plan. This can also be done through the Stripe dashboard.
-// You only need to create the plan once.
-//$subscription = \Stripe\Plan::create(array(
-//    "amount" => 2000,
-//    "interval" => "month",
-//    "name" => "Gold large",
-//    "currency" => "cad",
-//    "id" => "gold"
-//));
-// Subscribe the customer to the plan
-//$subscription = \Stripe\Subscription::create(array(
-//    "customer" => $customer->id,
-//    "plan" => "gold"
-//));
-//print_r($subscription);
+}
