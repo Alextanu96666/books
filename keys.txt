@@ -1,0 +1,2 @@
+sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9 = secret key
+pk_test_vZ7TxmvuMaWM9uUg47Xjppi3003pO6MbNk = publishible key
