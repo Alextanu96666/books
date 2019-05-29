@@ -1,4 +1,4 @@
-<pre>
+
 <?php
 
 include_once 'db/db.php';
@@ -46,12 +46,12 @@ if (isset($customer_id)) {
         $body = $e->getJsonBody();
         $err  = $body['error'];
     
-        print('Status is:' . $e->getHttpStatus() . "\n");
-        print('Type is:' . $err['type'] . "\n");
-        print('Code is:' . $err['code'] . "\n");
+    //    print('Status is:' . $e->getHttpStatus() . "\n");
+    //    print('Type is:' . $err['type'] . "\n");
+    //    print('Code is:' . $err['code'] . "\n");
         // param is '' in this case
-        print('Param is:' . $err['param'] . "\n");
-        print('Message is:' . $err['message'] . "\n");
+    //    print('Param is:' . $err['param'] . "\n");
+    //    print('Message is:' . $err['message'] . "\n");
     } catch (\Stripe\Error\RateLimit $e) {
         // Too many requests made to the API too quickly
     } catch (\Stripe\Error\InvalidRequest $e) {
@@ -80,12 +80,12 @@ if (isset($customer_id)) {
         $body = $e->getJsonBody();
         $err  = $body['error'];
     
-        print('Status is:' . $e->getHttpStatus() . "\n");
-        print('Type is:' . $err['type'] . "\n");
-        print('Code is:' . $err['code'] . "\n");
+     //   print('Status is:' . $e->getHttpStatus() . "\n");
+     //   print('Type is:' . $err['type'] . "\n");
+      //  print('Code is:' . $err['code'] . "\n");
         // param is '' in this case
-        print('Param is:' . $err['param'] . "\n");
-        print('Message is:' . $err['message'] . "\n");
+     //   print('Param is:' . $err['param'] . "\n");
+      //  print('Message is:' . $err['message'] . "\n");
     } catch (\Stripe\Error\RateLimit $e) {
         // Too many requests made to the API too quickly
     } catch (\Stripe\Error\InvalidRequest $e) {
@@ -103,7 +103,7 @@ if (isset($customer_id)) {
     }
 }
 if (isset($customer)) {
-    print_r($customer);
+  //  print_r($customer);
     $charge_customer = true;
     // Save the customer id in your own database!
     // Charge the Customer instead of the card
@@ -121,12 +121,12 @@ if (isset($customer)) {
         $body = $e->getJsonBody();
         $err  = $body['error'];
     
-        print('Status is:' . $e->getHttpStatus() . "\n");
-        print('Type is:' . $err['type'] . "\n");
-        print('Code is:' . $err['code'] . "\n");
+    //    print('Status is:' . $e->getHttpStatus() . "\n");
+     //   print('Type is:' . $err['type'] . "\n");
+     //   print('Code is:' . $err['code'] . "\n");
         // param is '' in this case
-        print('Param is:' . $err['param'] . "\n");
-        print('Message is:' . $err['message'] . "\n");
+     //   print('Param is:' . $err['param'] . "\n");
+     //   print('Message is:' . $err['message'] . "\n");
         $charge_customer = false;
     } catch (\Stripe\Error\RateLimit $e) {
         // Too many requests made to the API too quickly
@@ -144,7 +144,8 @@ if (isset($customer)) {
         // Something else happened, completely unrelated to Stripe
     }
     if ($charge_customer) {
-        print_r($charge);
+     //   print_r($charge);
+     echo 'charged';
     }
 }
     

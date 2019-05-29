@@ -9,39 +9,11 @@ class ApiClass
         $this->db = $this->db->connect();
     }
     public function ApiFunctions($pin) {
-        function fill_book($isbn)
-        {
-            
-            $curl = curl_init();
-            
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "http://apiprojekt.mistert.se/APIcourse/Pages/query_response.php?table=Books&apikey=5cec0d2413d45&ISBN=$isbn",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => array(
-                    "cache-control: no-cache"
-                ),
-            ));
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-            
-            curl_close($curl);
-            
-            $response = json_decode($response, true); //because of true, it's in an array
-            // var_dump($response['results'][0]['Namn']);
-            $book = [];
-            $book[0] = $isbn;
-            $book[1] = $response['results'][0]['Namn'];
-            $book[2] = $response['results'][0]['Beskrivning'];
-            return $book;
-            var_dump($book);
-        }
+        require_once('fill_book.php');
         $filename = 'isbn.csv';
         // The nested array to hold all the arrays
         $books = [];
-        $books[] = ['ISBN', 'Book title', 'Beskrivning'];
+        $books[] = ['ISBN', 'Book title', 'Author_id', 'publisher_id'];
         // Open the file for reading
         if ($file_handle = fopen($filename, 'r')) {
             // Read one line from the csv file, use comma as separator
@@ -63,6 +35,7 @@ class ApiClass
     fclose($file_to_write);
     if ($everything_is_awesome) {
         echo '<a href="' . $filename . '">Download file</a>';
+        
         
     } else {
         echo 'Everything is NOT awesome';

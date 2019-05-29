@@ -13,17 +13,17 @@ include_once 'classer/stripefunction.php';
         return $pin;
       }
       $pin = generatePIN();
-    //  if (isset($_POST['submit'])) {
+      if (isset($_POST['stripeToken'])) {
           
           $obj = new ApiClass();
           $obj->ApiFunctions($pin);
-    //  }
+      }
 
-    //  if (isset($_POST['submit'])) {
+      if (isset($_POST['stripeToken'])) {
           $obj2 = new StripeClass();
           $obj2->stripeFunctions();
 
-   //   }
+      }
 
 ?>
 
