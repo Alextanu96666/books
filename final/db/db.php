@@ -4,7 +4,7 @@ class DB
     private $username = "root";
     private $password = "";
     private $host = "localhost";
-    private $dbname = "classicmodels";
+    private $dbname = "booksapi";
     private $charset = "utf8";
     protected $conn;
     public function __construct()

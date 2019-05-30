@@ -10,10 +10,11 @@ class ApiClass
     }
     public function ApiFunctions($pin) {
         require_once('fill_book.php');
-        $filename = 'isbn.csv';
+        $filename = $_FILES['theFile']['name'];
+        
         // The nested array to hold all the arrays
         $books = [];
-        $books[] = ['ISBN', 'Book title', 'Author_id', 'publisher_id'];
+        $books[] = ['ISBN', 'Book title', 'Author_id', 'publisher_id', 'categories', 'pages'];
         // Open the file for reading
         if ($file_handle = fopen($filename, 'r')) {
             // Read one line from the csv file, use comma as separator

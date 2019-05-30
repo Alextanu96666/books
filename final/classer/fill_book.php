@@ -26,6 +26,8 @@ function fill_book($isbn)
     $book[1] = $response['title'];
     $book[2] = $response['author_id'];
     $book[3] = $response['publisher_id'];
+    $book[4] = $response['categories'][0];
+    $book[5] = $response['pages'];
     
     return $book;
     var_dump($book);

@@ -16,18 +16,45 @@ class StripeClass
         require_once('vendor/stripe/stripe-php/init.php');
 \Stripe\Stripe::setApiKey('sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9'); //YOUR_STRIPE_SECRET_KEY
 // Get the token from the JS script
+//getting all the info posted from inputs and storing into variables
 $token = $_POST['stripeToken'];
 $first_name = $_POST['first_name'];
+if ($_POST['first_name']) {
+    $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
+}
 $last_name=$_POST['last_name'];
+if ($_POST['last_name']) {
+    $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
+}
 $adress=$_POST['adress'];
+if ($_POST['adress']) {
+    $adress = filter_input(INPUT_POST, 'adress', FILTER_SANITIZE_STRING);
+}
 $zip_c = $_POST['zip_code'];
+if ($_POST['zip_code']) {
+    $zip_c = filter_input(INPUT_POST, 'zip_code', FILTER_SANITIZE_STRING);
+}
 $phone_num=$_POST['phone'];
+if ($_POST['phone']) {
+    $phone_num = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+}
 $email_c= $_POST['email'];
+if ($_POST['email']) {
+    $email_c = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+}
 $State= $_POST['State'];
+if ($_POST['State']) {
+    $State = filter_input(INPUT_POST, 'State', FILTER_SANITIZE_STRING);
+}
 $Country=$_POST['country'];
+if ($_POST['country']) {
+    $Country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+}
+
+
 // This is a 20.00 charge in SEK.
 // Charging a Customer
-// Create a Customer
+// Create a Customer with the new variables
 $name_first = $first_name;
 $name_last = $last_name;
 $address = $adress;
