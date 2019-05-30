@@ -17,16 +17,24 @@ class StripeClass
 \Stripe\Stripe::setApiKey('sk_test_cGwJLBRyZ0QtXxWPYMtNuEf400nInGyjN9'); //YOUR_STRIPE_SECRET_KEY
 // Get the token from the JS script
 $token = $_POST['stripeToken'];
+$first_name = $_POST['first_name'];
+$last_name=$_POST['last_name'];
+$adress=$_POST['adress'];
+$zip_c = $_POST['zip_code'];
+$phone_num=$_POST['phone'];
+$email_c= $_POST['email'];
+$State= $_POST['State'];
+$Country=$_POST['country'];
 // This is a 20.00 charge in SEK.
 // Charging a Customer
 // Create a Customer
-$name_first = "Batosai";
-$name_last = "Ednalan";
-$address = "New Cabalan Olongapo City";
-$state = "Zambales";
-$zip = "22005";
-$country = "Philippines";
-$phone = "09306408219";
+$name_first = $first_name;
+$name_last = $last_name;
+$address = $adress;
+$state = $State;
+$zip = $zip_c;
+$country = $Country;
+$phone = $phone_num;
 $user_info = [
     'First Name' => $name_first,
     'Last Name' => $name_last,
@@ -71,7 +79,7 @@ if (isset($customer_id)) {
     try {
         // Use Stripe's library to make requests...
         $customer = \Stripe\Customer::create(array(
-            'email' => 'rednalan23@gmail.com',
+            'email' => $email_c,
             'source' => $token,
             'metadata' => $user_info,
         ));
@@ -145,7 +153,7 @@ if (isset($customer)) {
     }
     if ($charge_customer) {
      //   print_r($charge);
-     echo 'charged';
+     echo 'Thank You for Your Payment';
     }
 }
     

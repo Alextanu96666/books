@@ -13,10 +13,15 @@ include_once 'classer/stripefunction.php';
         return $pin;
       }
       $pin = generatePIN();
+
+      
+
+
       if (isset($_POST['stripeToken'])) {
           
           $obj = new ApiClass();
           $obj->ApiFunctions($pin);
+
       }
 
       if (isset($_POST['stripeToken'])) {
@@ -57,9 +62,16 @@ include_once 'classer/stripefunction.php';
     <title>Document</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="" id="payment-form">
-    
-    <input type="file" value="välj fil">
+    <form method="post" enctype="multipart/form-data" action="" id="payment-form"> </br> </br>
+    <input type="text" name="first_name" placeholder="first_name"> </br> </br>
+    <input type="text" name="last_name" placeholder="last_name"> </br> </br>
+    <input type="text" name="adress" placeholder="State"> </br> </br>
+    <input type="text" name="email" placeholder="email"> </br> </br>
+    <input type="text" name="zip_code" placeholder="Zip code"> </br> </br>
+    <input type="text" name="State" placeholder="Län"> </br> </br>
+    <input type="text" name="country" placeholder="Country"> </br> </br>
+    <input type="text" name="phone" placeholder="phone number"> </br> </br>
+    <input type="file" value="välj fil"> </br> </br>
     <div class="form-row">
             
     <label for="card-element">Credit or debit card</label>
